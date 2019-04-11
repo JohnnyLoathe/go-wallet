@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="/assets/js/utils.js" async></script>
+        <link rel="icon" href="/assets/images/fav_icon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://unpkg.com/unnamed"/>
+        <link rel="stylesheet prefetch" href="/assets/css/account.css"/>
+        <link rel="icon" href="assets/images/fav_icon.ico" type="image/x-icon">
+        <title>Australia Cash</title>
+    </head>
+    <body>
+        <div class="brand-header">
+            <img src="/assets/images/brand-logo.png" class="brand-header-logo"/>
+        </div>
+
+        <div class="table-container">
+            <a href="/logout">logout</a>&nbsp;
+            <a href="/account">account</a>
+            <hr>
+            <h1>Wallet Keys</h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ .User.Username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Private Spend Key</th>
+                        <td>
+                            <span>{{ index .Keys "spendSecretKey" }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Private View Key</th>
+                        <td>
+                            <span>{{ index .Keys "viewKey" }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Public Spend Key</th>
+                        <td>
+                            <span>{{ index .Keys "spendPublicKey" }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="qr-keys">
+                <div class="card-img">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?data={%22privateSpendKey%22:%22{{ index .Keys "spendSecretKey" }}%22,%22privateViewKey%22:%22{{ index .Keys "viewKey" }}%22,%22publicSpendKey%22:%22{{ index .Keys "spendPublicKey" }}%22}&amp;size=200x200">
+                </div>
+                <div class="card-footer">
+                    <h4>QR Keys (DO NOT SHARE)</h4>
+                </div>
+            </div>
+            <article class="container">
+                <h2 class="center-text">How to use your Keys</h2>
+                <h3>Import your keys into Australia Cash Core wallet</h3>
+                <ol>
+                    <li> In the running AusCash client, <b>click help/debug window/console</b>.</li>
+                    <br>
+                    <li>If your wallet is encrypted type <b>walletpassphrase "your password" 600</b></li>
+                    <br>
+                    <li>type <b>importprivkey <auscash-privkey></b></li>
+                    <br>
+                    <li>Example: importprivkey 5KJvsngHeMpm884wtkJNzQGaCErckhHJBGFsvd3VyK5qMZXj3hS</li>
+                </ol>
+                <h3></h3>
+                <p></p>
+            </article>
+        </div>
+{{ template "footer" }}
